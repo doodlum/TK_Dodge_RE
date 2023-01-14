@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(
-	TKPlugin
+	TK_Dodge_RE
 	VERSION 0.61.0
 	LANGUAGES CXX
 )

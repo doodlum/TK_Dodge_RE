@@ -106,7 +106,7 @@ void TKRE::applyDodgeCost()
 {
 	auto pc = RE::PlayerCharacter::GetSingleton();
 	if (pc) {
-		pc->As<RE::ActorValueOwner>()->RestoreActorValue(RE::ACTOR_VALUE_MODIFIER::kDamage, RE::ActorValue::kStamina, -Settings::dodgeStamina);
+		pc->AsActorValueOwner()->RestoreActorValue(RE::ACTOR_VALUE_MODIFIER::kDamage, RE::ActorValue::kStamina, -Settings::dodgeStamina);
 	}
 }
 
