@@ -1,7 +1,5 @@
 #include "TKRE.h"
 
-
-
 #define SETTINGFILE_PATH "Data\\SKSE\\Plugins\\TK Dodge RE.ini"
 
 #define PI 3.14159265f
@@ -78,14 +76,13 @@ inline bool canDodge(RE::PlayerCharacter* a_pc) {
 	auto playerControls = RE::PlayerControls::GetSingleton();
 	bool bIsDodging = false;
 	auto controlMap = RE::ControlMap::GetSingleton();
-	auto attackState = a_pc->GetAttackState();
+	auto attackState = a_pc->AsActorState()->GetAttackState();
 	return a_pc->GetGraphVariableBool("bIsDodging", bIsDodging) && !bIsDodging  
-		&& ((attackState == RE::ATTACK_STATE_ENUM::kNone) || Settings::enableDodgeAttackCancel)
-		&& (!a_pc->IsSprinting() || !Settings::EnableSprintKeyDodge) 
+		&& ((attackState == RE::ATTACK_STATE_ENUM::kNone) || Settings::enableDodgeAttackCancel) && (!a_pc->AsActorState()->IsSprinting() || !Settings::EnableSprintKeyDodge) 
 		&& (controlMap->IsMovementControlsEnabled() && controlMap->IsFightingControlsEnabled())
 		&& (!a_pc->IsSneaking() || Settings::enableSneakDodge)
 		&& playerControls && playerControls->attackBlockHandler && playerControls->attackBlockHandler->inputEventHandlingEnabled && playerControls->movementHandler && playerControls->movementHandler->inputEventHandlingEnabled &&
-		(a_pc->GetSitSleepState() == RE::SIT_SLEEP_STATE::kNormal && a_pc->GetKnockState() == RE::KNOCK_STATE_ENUM::kNormal && a_pc->GetFlyState() == RE::FLY_STATE::kNone) && !a_pc->IsSwimming() && !isJumping(a_pc) && !a_pc->IsInKillMove() && (a_pc->GetActorValue(RE::ActorValue::kStamina) >= Settings::dodgeStamina);
+	       (a_pc->AsActorState()->GetSitSleepState() == RE::SIT_SLEEP_STATE::kNormal && a_pc->AsActorState()->GetKnockState() == RE::KNOCK_STATE_ENUM::kNormal && a_pc->AsActorState()->GetFlyState() == RE::FLY_STATE::kNone) && !a_pc->AsActorState()->IsSwimming() && !isJumping(a_pc) && !a_pc->IsInKillMove() && (a_pc->AsActorValueOwner()->GetActorValue(RE::ActorValue::kStamina) >= Settings::dodgeStamina);
 }
 
 void TKRE::dodge()

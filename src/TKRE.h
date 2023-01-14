@@ -1,5 +1,6 @@
 #pragma once
 #include <xstddef>
+#include <SimpleIni.h>
 
 class TKRE
 {
